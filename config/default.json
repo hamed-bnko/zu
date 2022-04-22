@@ -1,0 +1,7 @@
+{ 
+  "mongoURI": "mongodb+srv://mouner:1234m1234A@cluster0.rji1e.mongodb.net/zu-db?retryWrites=true&w=majority",
+  "jwtSecret": "hamed weld ben kora",
+  "dire": "build",
+  "Email" : "autoreply@hipz.edu.ly",
+  "emailPassword": "Hipz@2022!?"
+}
