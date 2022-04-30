@@ -120,7 +120,7 @@ const UpdateAdvs = async (req, res) => {
 // @desc    delete ADV
 // @access  private
 const DeleteAdv = async (req, res) => {
-  const dirname = path.join(__dirname, "../");
+  const dirname = path.join(__dirname, "../", "../");
   try {
     let adv = await Advs.findById(req.params.id);
     fs.unlink(`${dirname}/${config.get("dire")}/` + adv.image, (err) => {

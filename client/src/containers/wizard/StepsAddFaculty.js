@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 import React, { useState } from 'react';
@@ -205,7 +206,7 @@ const LastStepEnd = ({ intl, toggleModal }) => {
       >
         <span className="logo-single  m-5" />
         <CardTitle className="mb-4">
-          <IntlMessages id="admin.register" />
+          <IntlMessages id="faculty.add-new" />
         </CardTitle>
         <Wizard>
           <TopNavigation

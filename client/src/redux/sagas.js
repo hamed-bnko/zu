@@ -11,6 +11,8 @@ import advsListSagas from './advsList/saga';
 import filesListSagas from './filesList/saga';
 import facultyDetailsSaga from './facultyDetail/saga';
 import departmentListSage from './departmentsList/saga';
+import speechListSaga from './speechList/saga';
+import articlesListSage from './articlesList/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -26,5 +28,7 @@ export default function* rootSaga() {
     newsListSagas(),
     facultyDetailsSaga(),
     departmentListSage(),
+    articlesListSage(),
+    speechListSaga(),
   ]);
 }

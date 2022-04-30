@@ -13,6 +13,8 @@ import advsListApp from './advsList/reducer';
 import filesListApp from './filesList/reducer';
 import facultyDetailsApp from './facultyDetail/reducer';
 import departmentListApp from './departmentsList/reducer';
+import speechListApp from './speechList/reducer';
+import articlesListApp from './articlesList/reducer';
 
 const reducers = combineReducers({
   menu,
@@ -20,6 +22,7 @@ const reducers = combineReducers({
   authUser,
   todoApp,
   chatApp,
+  speechListApp,
   filesListApp,
   surveyListApp,
   surveyDetailApp,
@@ -29,6 +32,7 @@ const reducers = combineReducers({
   newsListApp,
   facultyDetailsApp,
   departmentListApp,
+  articlesListApp,
 });
 
 export default reducers;

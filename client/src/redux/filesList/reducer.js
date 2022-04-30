@@ -16,6 +16,13 @@ const INIT_STATE = {
   error: '',
   loading: false,
   selectedItems: [],
+  filter: null,
+  searchKeyword: '',
+  orderColumn: null,
+  orderColumns: [
+    { column: 'type', label: 'النوع' },
+    { column: 'title', label: ' العنوان' },
+  ],
 };
 
 export default (state = INIT_STATE, action) => {

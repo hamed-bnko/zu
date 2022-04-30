@@ -25,6 +25,14 @@ const NewsPages = React.lazy(() =>
 const AdvsPages = React.lazy(() =>
   import(/* webpackChunkName: "menu" */ './advs')
 );
+const FormsAndEvidence = React.lazy(() =>
+  import(/* webpackChunkName: "blank-page" */ './formsAndEvidence')
+);
+
+const Articles = React.lazy(() =>
+  import(/* webpackChunkName: "blank-page" */ './articles')
+);
+
 const BlankPage = React.lazy(() =>
   import(/* webpackChunkName: "blank-page" */ './blank-page')
 );
@@ -87,6 +95,14 @@ const App = ({ match }) => {
             <Route
               path={`${match.url}/advs`}
               render={(props) => <AdvsPages {...props} />}
+            />
+            <Route
+              path={`${match.url}/forms-evidence`}
+              render={(props) => <FormsAndEvidence {...props} />}
+            />
+            <Route
+              path={`${match.url}/articles`}
+              render={(props) => <Articles {...props} />}
             />
             <Route
               path={`${match.url}/faculties/:url`}

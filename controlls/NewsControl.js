@@ -105,21 +105,18 @@ exports.UpdateNews = async (req, res) => {
 // @desc    delete News
 // @access  private
 exports.DeleteNews = async (req, res) => {
-  const dirname = path.join(__dirname, "../");
+  const dirname = path.join(__dirname, "../", "../");
   try {
     let news = await News.findById(req.params.id);
-    fs.unlink(`${dirname}/${config.get("dire")}/` + news.image, (err) => {
+    fs.unlink(`${dirname}/` + news.image, (err) => {
       if (err) throw err;
     });
     for (let i = 0; i < news.imagegalary.length; i++) {
-      const paths = `${dirname}/${config.get("dire")}/${news.imagegalary[i]}`;
+      const paths = `${dirname}/${news.imagegalary[i]}`;
       if (fs.existsSync(paths)) {
-        fs.unlink(
-          `${dirname}/${config.get("dire")}/` + news.imagegalary[i],
-          (err) => {
-            if (err) throw err;
-          }
-        );
+        fs.unlink(`${dirname}/` + news.imagegalary[i], (err) => {
+          if (err) throw err;
+        });
       }
     }
     if (!news) return res.status(400).json("News not found");

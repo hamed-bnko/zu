@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-underscore-dangle */
@@ -14,26 +15,30 @@ import {
   Button,
   TabContent,
   TabPane,
-  // DropdownToggle,
-  // ButtonDropdown,
-  // DropdownItem,
-  // DropdownMenu,
+  Card,
+  Collapse,
 } from 'reactstrap';
 // import IntlMessages from 'helpers/IntlMessages';
 
 import { getFacultyDetail, getDepartmentsList } from 'redux/actions';
 import FacultyDetailCard from 'components/applications/FacultyDetailCard';
 
-// import CoursesAdded from 'containers/applications/MarksBuilder';
-import AddStudentsToSubject from 'containers/subjectsContainers/Madels/AddStudentsToSubject';
+import DepartmentItem from 'containers/applications/DepartmentItem';
+import AddDepartment from 'containers/applications/AddNewDepartment';
+import AddSpeechModal from 'containers/applications/addSpeechModal';
+import {
+  getSpeechList,
+  deleteSpeechItem,
+} from '../../../redux/speechList/actions';
 
 const FacultyDetailApp = ({ match }) => {
   const [activeTab, setActiveTab] = useState('details');
   // const [dropdownSplitOpen, setDropdownSplitOpen] = useState(false);
-  const [madalAddStudentToSubject, setMadalAddStudentToSubject] =
-    useState(false);
+  const [madalAddDepartment, setMadalAddDepartment] = useState(false);
+  const [showingIndex, setShowIndex] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
 
-  console.log(madalAddStudentToSubject);
+  console.log(madalAddDepartment);
 
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.authUser);
@@ -50,6 +55,11 @@ const FacultyDetailApp = ({ match }) => {
         currentUser.roles === '3' ? currentUser.tracking : match.params.url
       )
     );
+    dispatch(
+      getSpeechList(
+        currentUser.roles === '3' ? currentUser.tracking : match.params.url
+      )
+    );
     return () => {
       document.body.classList.remove('right-menu');
     };
@@ -57,6 +67,7 @@ const FacultyDetailApp = ({ match }) => {
 
   const { faculty, loading } = useSelector((state) => state.facultyDetailsApp);
   const { departmentsItems } = useSelector((state) => state.departmentListApp);
+  const { SpeechItems } = useSelector((state) => state.speechListApp);
 
   return (
     <>
@@ -154,8 +165,14 @@ const FacultyDetailApp = ({ match }) => {
                     <Colxx xxs="12" lg="8">
                       <ul className="list-unstyled mb-4">
                         {departmentsItems &&
-                          departmentsItems.map((department) => (
-                            <li key={department._id}>{department.title}</li>
+                          departmentsItems.map((item, index) => (
+                            <li data-id={item._id} key={item._id}>
+                              <DepartmentItem
+                                order={index}
+                                {...item}
+                                expanded={!item.title && true}
+                              />
+                            </li>
                           ))}
                       </ul>
 
@@ -164,11 +181,62 @@ const FacultyDetailApp = ({ match }) => {
                           outline
                           color="primary"
                           className="mt-3"
-                          onClick={() => setMadalAddStudentToSubject(true)}
+                          onClick={() => setMadalAddDepartment(true)}
                         >
                           <i className="simple-icon-plus btn-group-icon" />{' '}
                           إضافة قسم للكلية
                         </Button>
+                      </div>
+                      <div className="mt-4">
+                        <ul className="list-unstyled mb-4">
+                          {SpeechItems &&
+                            SpeechItems.map((item, index) => (
+                              <Card
+                                className="d-flex mb-3"
+                                key={`faqItem_${index}`}
+                              >
+                                <div className="d-flex flex-grow-1 min-width-zero">
+                                  <Button
+                                    color="link"
+                                    className="card-body  btn-empty btn-link list-item-heading text-right text-one"
+                                    onClick={() => setShowIndex(index)}
+                                    aria-expanded={showingIndex === index}
+                                  >
+                                    {item.name} - ({item.adjective})
+                                  </Button>
+                                  <Button
+                                    color="link"
+                                    className="card-body  btn-empty btn-link list-item-heading text-left text-one"
+                                    onClick={() =>
+                                      dispatch(deleteSpeechItem(item._id))
+                                    }
+                                  >
+                                    x
+                                  </Button>
+                                </div>
+                                <Collapse isOpen={showingIndex === index}>
+                                  <div
+                                    className="card-body accordion-content pt-0"
+                                    dangerouslySetInnerHTML={{
+                                      __html: item.details,
+                                    }}
+                                  />
+                                </Collapse>
+                              </Card>
+                            ))}
+                        </ul>
+
+                        <div className="text-center">
+                          <Button
+                            outline
+                            color="primary"
+                            className="mt-3"
+                            onClick={() => setModalOpen(true)}
+                          >
+                            <i className="simple-icon-plus btn-group-icon" />{' '}
+                            إضافة كلمة
+                          </Button>
+                        </div>
                       </div>
                     </Colxx>
                   </Row>
@@ -187,12 +255,19 @@ const FacultyDetailApp = ({ match }) => {
           )}
         </Colxx>
       </Row>
+      <AddSpeechModal
+        // eslint-disable-next-line no-underscore-dangle
+        itemId={faculty && faculty.Url}
+        itemName={faculty && faculty.facultyTitle}
+        toggleModal={() => setModalOpen(!modalOpen)}
+        modalOpen={modalOpen}
+      />
 
-      <AddStudentsToSubject
-        madalAddStudentToSubject={madalAddStudentToSubject}
-        toggleModal={() =>
-          setMadalAddStudentToSubject(!madalAddStudentToSubject)
-        }
+      <AddDepartment
+        tracking={faculty && faculty.Url}
+        nameOFTracking={faculty && faculty.facultyTitle}
+        modalOpen={madalAddDepartment}
+        toggleModal={() => setMadalAddDepartment(!madalAddDepartment)}
       />
     </>
   );

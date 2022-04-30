@@ -34,8 +34,8 @@ export const currentUser = {
   role: UserRole.Admin,
 };
 
-export const Url = 'http://localhost:4040/';
-// export const Url = 'https://db.zu.edu.ly/';
+// export const Url = 'http://localhost:4040/';
+export const Url = 'https://db.zu.edu.ly/';
 export const adminRoot = '/app';
 export const buyUrl = 'https://1.envato.market/k4z0';
 export const searchPath = `${adminRoot}/pages/miscellaneous/search`;

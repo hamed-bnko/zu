@@ -36,6 +36,20 @@ const data = [
       },
     ],
   },
+  {
+    id: 'forms-and-evidence',
+    icon: 'iconsminds-diploma-2',
+    label: 'menu.forms-and-evidence-page',
+    to: `${adminRoot}/forms-evidence`,
+    roles: ['1'],
+  },
+  {
+    id: 'articles',
+    icon: 'iconsminds-diploma-2',
+    label: 'menu.articles-page',
+    to: `${adminRoot}/articles`,
+    roles: ['1'],
+  },
 
   // {
   //   id: 'dashboards',

@@ -47,7 +47,7 @@ const SurveyListItem = ({ item }) => {
                 <p
                   className="text-justify"
                   dangerouslySetInnerHTML={{
-                    __html: item.description.substr(0, 150),
+                    __html: item && item.description.substr(0, 150),
                   }}
                 />
                 <Button

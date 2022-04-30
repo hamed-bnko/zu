@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { Modal } from 'reactstrap';

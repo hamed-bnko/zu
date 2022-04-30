@@ -22,6 +22,8 @@ app.use("/api/departments", require("./routes/departmentsRoute"));
 app.use("/api/news", require("./routes/NewsRoute"));
 app.use("/api/advs", require("./routes/AdvsRoute"));
 app.use("/api/files", require("./routes/filesRoute"));
+app.use("/api/speech", require("./routes/speechRoute"));
+app.use("/api/articles", require("./routes/articlesRoute"));
 
 const PORT = process.env.PORT || 4040;
 

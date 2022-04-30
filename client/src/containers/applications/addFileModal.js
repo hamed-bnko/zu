@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable no-underscore-dangle */
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -10,20 +11,30 @@ import {
   Input,
   Label,
 } from 'reactstrap';
-
+import Select from 'react-select';
+import CustomSelectInput from 'components/common/CustomSelectInput';
 import { NotificationManager } from 'components/common/react-notifications';
 import IntlMessages from 'helpers/IntlMessages';
 import { addFileItem } from 'redux/actions';
 
-const AddFileModal = ({ itemId, itemName, modalOpen, toggleModal }) => {
+const AddFileModal = ({
+  itemId,
+  itemName,
+  modalOpen,
+  toggleModal,
+  type,
+  formTitle,
+}) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
+  const [Type, setType] = useState('');
   const [Image, setImage] = useState('');
 
   const addfile = () => {
     const payload = new FormData();
     payload.append('file', Image);
     payload.append('title', title);
+    payload.append('type', Type.value);
     payload.append('tracking', itemId);
     payload.append('nameOFTracking', itemName);
     if (Image === '' || title === '') {
@@ -60,7 +71,7 @@ const AddFileModal = ({ itemId, itemName, modalOpen, toggleModal }) => {
       backdrop="static"
     >
       <ModalHeader toggle={toggleModal}>
-        <IntlMessages id="file.add-new" />
+        {type ? formTitle : 'اضافة مرفق'}
       </ModalHeader>
       <ModalBody>
         <Label className="mt-4">
@@ -78,6 +89,30 @@ const AddFileModal = ({ itemId, itemName, modalOpen, toggleModal }) => {
           defaultValue={title}
           onChange={(event) => setTitle(event.target.value)}
         />
+        <br />
+        {type && (
+          <>
+            {' '}
+            <Label>
+              <IntlMessages id="file.type" />
+            </Label>
+            <Select
+              components={{ Input: CustomSelectInput }}
+              className="react-select"
+              classNamePrefix="react-select"
+              name="form-field-name"
+              options={type.map((x) => {
+                return {
+                  label: x.label,
+                  value: x.value,
+                  key: x.key,
+                };
+              })}
+              value={Type}
+              onChange={(val) => setType(val)}
+            />
+          </>
+        )}
       </ModalBody>
       <ModalFooter>
         <Button color="secondary" outline onClick={toggleModal}>

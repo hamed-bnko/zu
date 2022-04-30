@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Card, CardBody, Badge, CustomInput, Button } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-import EditFacultyModal from 'containers/applications/EditFacultyModal';
+import EditFacultyModal from 'containers/applications/EditFacultyMadel';
 
 import { Colxx } from '../common/CustomBootstrap';
 import { adminRoot } from '../../constants/defaultValues';
@@ -89,7 +89,7 @@ const SurveyListItem = ({ item, handleCheckChange, isSelected }) => {
         </div>
       </Card>
       <EditFacultyModal
-        item={item}
+        faculty={item}
         toggleModal={() => setModalOpen(!modalOpen)}
         modalOpen={modalOpen}
       />

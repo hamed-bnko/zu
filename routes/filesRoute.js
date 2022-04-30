@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
-const { check, validationResult } = require("express-validator");
 const auth = require("../middleware/auth");
 const config = require("config");
 const multer = require("multer");
@@ -15,9 +14,9 @@ const {
 //===============
 //upload image
 //===============
-const dirname = path.join(__dirname, "../");
+const dirname = path.join(__dirname, "../", "../");
 const storage = multer.diskStorage({
-  destination: `${dirname}/${config.get("dire")}/uploads/files/`,
+  destination: `${dirname}/uploads/files/`,
   filename: function (req, file, cb) {
     cb(
       null,

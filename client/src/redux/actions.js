@@ -94,6 +94,32 @@ export {
 } from './departmentsList/actions';
 
 export {
+  getSpeechList,
+  getSpeechListSuccess,
+  getSpeechListError,
+  addSpeechItem,
+  addSpeechItemSuccess,
+  addSpeechItemError,
+  deleteSpeechItemSuccess,
+  deleteSpeechItemError,
+} from './speechList/actions';
+
+export {
+  getArticlesList,
+  getArticlesListSuccess,
+  getArticlesListError,
+  getArticlesListByTracking,
+  getArticlesListByTrackingSuccess,
+  getArticlesListByTrackingError,
+  addArticlesItem,
+  addArticlesItemSuccess,
+  addArticlesItemError,
+  deleteArticlesItem,
+  deleteArticlesItemSuccess,
+  deleteArticlesItemError,
+} from './articlesList/actions';
+
+export {
   getAdvsListByTrackingSuccess,
   getAdvsListByTracking,
   getAdvsListByTrackingError,

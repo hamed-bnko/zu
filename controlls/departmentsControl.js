@@ -95,7 +95,7 @@ exports.addDepartment = async (req, res) => {
       youtube,
       instagram,
       videoLink,
-      Url,
+      Url: tracking + "-" + Url,
       title,
       tracking,
       nameOFTracking,
@@ -104,6 +104,7 @@ exports.addDepartment = async (req, res) => {
       graduationProject,
       studyYears,
     });
+    console.log(newDepartment);
     const department = await newDepartment.save();
     res.json(department);
   } catch (error) {

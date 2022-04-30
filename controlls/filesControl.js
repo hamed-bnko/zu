@@ -1,7 +1,6 @@
 const path = require("path");
 const fs = require("fs");
 const config = require("config");
-const { validationResult } = require("express-validator");
 
 // Mongoose model
 const Files = require("../models/files");
@@ -36,13 +35,15 @@ exports.getFilesByTracking = async (req, res, next) => {
 // @desc    add a Adv to database
 // @access  Private
 exports.addfile = async (req, res) => {
-  const { title, tracking, nameOFTracking } = req.body;
+  const { title, tracking, nameOFTracking, type } = req.body;
   try {
+    console.log(req.file.filename);
     const newFile = new Files({
-      image: "/uploads/files/" + req.file.filename,
+      file: "/uploads/files/" + req.file.filename,
       title,
       tracking,
       nameOFTracking,
+      type,
     });
 
     const file = await newFile.save();
@@ -57,11 +58,17 @@ exports.addfile = async (req, res) => {
 // @desc    delete ADV
 // @access  private
 exports.DeleteFile = async (req, res) => {
-  const dirname = path.join(__dirname, "../");
+  const dirname = path.join(__dirname, "../", "../");
   try {
     let file = await Files.findById(req.params.id);
     if (!file) return res.status(400).json("file not found");
-    await file.findByIdAndRemove(file._id);
+    const paths = `${dirname}/${file.file}`;
+    if (fs.existsSync(paths)) {
+      fs.unlink(`${dirname}/` + file.file, (err) => {
+        if (err) throw err;
+      });
+    }
+    await Files.findByIdAndRemove(file._id);
     res.json({ msg: "File is deleted" });
   } catch (error) {
     console.log(error.message);

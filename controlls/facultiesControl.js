@@ -183,7 +183,7 @@ exports.UpdateFaculty = async (req, res) => {
 // @desc    delete News
 // @access  private
 exports.DeleteFaculty = async (req, res) => {
-  const dirname = path.join(__dirname, "../");
+  const dirname = path.join(__dirname, "../", "../");
   try {
     let faculty = await Faculties.findById(req.params.id);
     fs.unlink(`${dirname}/${config.get("dire")}/` + faculty.image);
